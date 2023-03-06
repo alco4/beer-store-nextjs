@@ -1,0 +1,18 @@
+.sectionTitle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.sectionTitle__title {
+  font-size: 18px;
+}
+
+.sectionTitle__action {
+  color: #646464;
+  opacity: 0.6;
+  font-size: 14px;
+}

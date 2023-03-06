@@ -8,5 +8,6 @@ import { FilterSearchInput } from "./FilterSearchInput";
 import { CategoryFilterBar } from "./CategoryFilterBar";
 import { CategoryFilterButton } from "./CategoryFilterButton";
 import { ProductDetailHeader } from "./ProductDetailHeader";
+import { SectionTitle } from "./SectionTitle";
 
-export { ProfilePicture, MenuButton, HomeHeader, HomeTitle, HomeFooter, ProductCard, FilterSearchInput, CategoryFilterBar, CategoryFilterButton, ProductDetailHeader }
+export { ProfilePicture, MenuButton, HomeHeader, HomeTitle, HomeFooter, ProductCard, FilterSearchInput, CategoryFilterBar, CategoryFilterButton, ProductDetailHeader, SectionTitle }

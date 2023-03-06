@@ -1,7 +1,7 @@
 import { SetStateAction, useEffect, useState } from 'react'
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import { CategoryFilterBar, FilterSearchInput, HomeFooter, HomeHeader, HomeTitle, ProductCard } from '@/components'
+import { CategoryFilterBar, FilterSearchInput, HomeFooter, HomeHeader, HomeTitle, ProductCard, SectionTitle } from '@/components'
 import { Product } from '@/models'
 
 
@@ -53,7 +53,9 @@ export default function Home() {
         <HomeHeader />
         <HomeTitle />
         <FilterSearchInput value={filterValue} onChange={onChangeFilterValue} />
+        <SectionTitle title={"Drink Category"} />
         <CategoryFilterBar />
+        <SectionTitle title={"Populer"} />
         {loading ? 'Loading...' :
           <div className={styles.productList}>
             {productsList.map(({ id, brand, defaultSku, imageUrl }) => {
