@@ -41,12 +41,15 @@
 
 .productDetail__description {
   color: #969696;
+  margin-top: 8px;
+}
+
+.productDetail__contractDescription {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 8px;
 }
 
 .productDetail__expandDescription {

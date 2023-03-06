@@ -13,17 +13,19 @@ export default function ProductDetail() {
     const [price, setPrice] = useState(0)
     const [stock, setStock] = useState(0)
     const [selectedSku, setSelectSku] = useState('')
-    const [expandDescription, setExpandDescription] = useState(false)
-    const intervalRef = useRef(null)
+    const [contractDescription, setContractDescription] = useState(true)
+    let [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchProducts = async (productId: string | string[] | undefined) => {
+            setLoading(true)
             const productsData = await fetch('api/productsList')
             const { products } = await productsData.json()
             const selectedProduct = products.filter((product: { id: string | string[] | undefined }) => product.id == productId)
             const product = Product.fromJson(selectedProduct[0])
             setSelectSku(product.defaultSku)
             setProductDetail(Product.fromJson(selectedProduct[0]))
+            setLoading(false)
         }
 
         try {
@@ -32,6 +34,8 @@ export default function ProductDetail() {
                 fetchProducts(productId)
             }
         } catch (e) {
+            setLoading(false)
+            console.log(e)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router.isReady])
@@ -65,50 +69,54 @@ export default function ProductDetail() {
 
     return (
         <div className={styles.productDetail}>
-            <ProductDetailHeader />
-            <Image
-                src={`/images${productDetail.imageUrl}`}
-                width={240}
-                height={240}
-                style={{ objectFit: 'contain' }}
-                alt="productImg"
-                sizes="(max-width: 768px) 100vw,
-                (max-width: 1200px) 50vw,
-                33vw"
-            />
-            <div className={styles.productDetail__content}>
-                <div className={styles.productDetail__title}>
-                    <h2>{productDetail.brand}</h2>
-                    <h2 className={styles.productDetail__price}>{formatMoney(price)}</h2>
-                </div>
-                <div className={styles.productDetail__subtitle}>
-                    <p>{`Origin: ${productDetail.origin} | Stock: ${stock}`}</p>
-                </div>
-                <h3 className={styles.productDetail__descriptionTitle}>Description</h3>
-                <div className={`{expandDescription && styles.productDetail__description}`}>
-                    <p>{productDetail.description}</p>
-                </div>
-                <p className={styles.productDetail__expandDescription} onClick={() => setExpandDescription(!expandDescription)}>Read More</p>
-                <h3 className={styles.productDetail__sizeTitle}>Size</h3>
-                <div className={styles.productDetail__sizeOptions}>
-                    <div className={styles.productDetail__sizeOptions}>{productDetail.skus && productDetail.skus.map(({ code, name }: { code: string, name: string }) => <div onClick={() => setSelectSku(code)} className={`${styles.productDetail__size} ${selectedSku == code && styles.productDetail__sizeSelected}`} key={code}>{name}</div>)}</div>
-                </div>
-                <div className={styles.productDetail__footer}>
-                    <div className={styles.productDetail__cart}>
-                        <Image
-                            src={`/images/icons/selectedCartIco.png`}
-                            width={30}
-                            height={30}
-                            style={{ objectFit: 'contain' }}
-                            alt="selectedCartIco"
-                            sizes="(max-width: 768px) 100vw,
+            {loading ? 'Loading...' :
+                <>
+                    <ProductDetailHeader />
+                    {productDetail.imageUrl && <Image
+                        src={`/images${productDetail.imageUrl}`}
+                        width={240}
+                        height={240}
+                        style={{ objectFit: 'contain' }}
+                        alt="productImg"
+                        sizes="(max-width: 768px) 100vw,
+                    (max-width: 1200px) 50vw,
+                    33vw"
+                    />}
+                    <div className={styles.productDetail__content}>
+                        <div className={styles.productDetail__title}>
+                            <h2>{productDetail.brand}</h2>
+                            <h2 className={styles.productDetail__price}>{formatMoney(price)}</h2>
+                        </div>
+                        <div className={styles.productDetail__subtitle}>
+                            <p>{`Origin: ${productDetail.origin} | Stock: ${stock}`}</p>
+                        </div>
+                        <h3 className={styles.productDetail__descriptionTitle}>Description</h3>
+                        <div className={`${styles.productDetail__description} ${contractDescription && styles.productDetail__contractDescription}`}>
+                            <p>{productDetail.description}</p>
+                        </div>
+                        <p className={styles.productDetail__expandDescription} onClick={() => setContractDescription(!contractDescription)}>Read More</p>
+                        <h3 className={styles.productDetail__sizeTitle}>Size</h3>
+                        <div className={styles.productDetail__sizeOptions}>
+                            <div className={styles.productDetail__sizeOptions}>{productDetail.skus && productDetail.skus.map(({ code, name }: { code: string, name: string }) => <div onClick={() => setSelectSku(code)} className={`${styles.productDetail__size} ${selectedSku == code && styles.productDetail__sizeSelected}`} key={code}>{name}</div>)}</div>
+                        </div>
+                        <div className={styles.productDetail__footer}>
+                            <div className={styles.productDetail__cart}>
+                                <Image
+                                    src={`/images/icons/selectedCartIco.png`}
+                                    width={30}
+                                    height={30}
+                                    style={{ objectFit: 'contain' }}
+                                    alt="selectedCartIco"
+                                    sizes="(max-width: 768px) 100vw,
                             (max-width: 1200px) 50vw,
                             33vw"
-                        />
+                                />
+                            </div>
+                            <div className={styles.productDetail__addToCart}>Add to cart</div>
+                        </div>
                     </div>
-                    <div className={styles.productDetail__addToCart}>Add to cart</div>
-                </div>
-            </div>
+                </>
+            }
         </div>
     )
 }

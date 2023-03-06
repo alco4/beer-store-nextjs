@@ -1,30 +1,45 @@
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { CategoryFilterBar, FilterSearchInput, HomeFooter, HomeHeader, HomeTitle, ProductCard } from '@/components'
 import { Product } from '@/models'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [productsList, setProductsList] = useState([])
+  const [productsListBackup, setProductsListBackup] = useState<any[]>([])
+  const [productsList, setProductsList] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
+  const [filterValue, setFilterValue] = useState('')
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true)
       const productsData = await fetch('api/productsList')
       const { products } = await productsData.json()
-      setProductsList(products.map((product: { id: number; brand: string; skus: any; image: string, origin: string, information: string }) => Product.fromJson(product)))
+      const modeledProducts = products.map((product: { id: number; brand: string; skus: any; image: string, origin: string, information: string }) => Product.fromJson(product))
+      setProductsList(modeledProducts)
+      setProductsListBackup(modeledProducts)
+      setLoading(false)
     }
 
     try {
       fetchProducts()
     } catch (e) {
+      setLoading(false)
       console.log(e)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const filteredProducts = productsListBackup.filter(({ brand }) =>
+      brand.toLowerCase().includes(filterValue.toLowerCase())
+    )
+    setProductsList(filteredProducts)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterValue])
+
+  const onChangeFilterValue = (e: { target: { value: SetStateAction<string> } }) => setFilterValue(e.target.value)
 
   return (
     <>
@@ -37,13 +52,14 @@ export default function Home() {
       <main className={styles.main}>
         <HomeHeader />
         <HomeTitle />
-        <FilterSearchInput />
+        <FilterSearchInput value={filterValue} onChange={onChangeFilterValue} />
         <CategoryFilterBar />
-        <div className={styles.productList}>
-          {productsList.map(({ id, brand, defaultSku, imageUrl }) => {
-            return <ProductCard key={id} productId={id} sku={defaultSku} brand={brand} imageUrl={imageUrl} />
-          })}
-        </div>
+        {loading ? 'Loading...' :
+          <div className={styles.productList}>
+            {productsList.map(({ id, brand, defaultSku, imageUrl }) => {
+              return <ProductCard key={id} productId={id} sku={defaultSku} brand={brand} imageUrl={imageUrl} />
+            })}
+          </div>}
         <HomeFooter />
       </main>
     </>
