@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.productList{
+  display: grid;
+  grid-template-columns: 155px 155px;
+  grid-template-rows:200px;
+  column-gap: 13px;
+  row-gap: 8px;
+  margin: auto;
+  margin-bottom: 100px;
+}
+
+@media (min-width: 600px) {
+  .productList {
+    grid-template-columns: 155px 155px 155px 155px;
+    column-gap: 50px;
+  }
+}

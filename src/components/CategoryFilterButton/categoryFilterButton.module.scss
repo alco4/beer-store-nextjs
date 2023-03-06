@@ -1,0 +1,22 @@
+.categoryFilterButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  height: 48px;
+  padding: 4px 20px;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
+
+.categoryFilterButton__selected {
+  background-color: #ff9f24;
+  color: #ffffff;
+}
+
+.categoryFilterButton__text {
+  margin-left: 5px;
+}

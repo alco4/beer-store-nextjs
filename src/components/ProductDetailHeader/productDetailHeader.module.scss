@@ -1,0 +1,24 @@
+.productDetailHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding: 0 25px;
+}
+
+.arrowBack {
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
+.productDetailHeader__options {
+  height: 40px;
+  width: 40px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}

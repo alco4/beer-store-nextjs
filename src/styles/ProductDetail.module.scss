@@ -1,0 +1,119 @@
+.productDetail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 47px;
+}
+
+.productDetail__title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productDetail__content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 45px 33px;
+  background-color: #ffffff;
+  border-radius: 48px 48px 0px 0px;
+}
+
+.productDetail__price {
+  color: #ff9f24;
+}
+
+.productDetail__subtitle {
+  color: #969696;
+  width: 100%;
+}
+
+.productDetail__descriptionTitle {
+  width: 100%;
+  margin-top: 29px;
+}
+
+.productDetail__description {
+  color: #969696;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 8px;
+}
+
+.productDetail__expandDescription {
+  display: flex;
+  color: #ff9f24;
+  width: 100%;
+}
+
+.productDetail__sizeTitle {
+  width: 100%;
+  margin-top: 22px;
+}
+
+.productDetail__sizeOptions {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 13px;
+}
+
+.productDetail__size {
+  border: 1px solid #969696;
+  border-radius: 30px;
+  padding: 8px;
+  font-size: 14px;
+  margin-right: 20px;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
+
+.productDetail__sizeSelected {
+  border: 1px solid #ff9f24;
+  color: #ff9f24;
+}
+
+.productDetail__footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+}
+.productDetail__cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 54px;
+  height: 54px;
+  background-color: #ffffff;
+  border: 0.8px solid #ff9f24;
+  border-radius: 12px;
+  color: #ff9f24;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
+.productDetail__addToCart {
+  background-color: #ff9f24;
+  border-radius: 12px;
+  color: #ffffff;
+  padding: 16px 60px;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
